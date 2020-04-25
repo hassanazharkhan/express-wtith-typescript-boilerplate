@@ -68,3 +68,7 @@ The API will be useable from the documentation available at http://localhost:300
 + `test` - run tests,
 + `test:watch` - interactive watch mode to automatically re-run tests
 + `watch` - automatically restart the application when file changes in the directory are detected
+
+
+### License
+[MIT](/LICENSE)
