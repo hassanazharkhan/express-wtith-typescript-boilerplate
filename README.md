@@ -1,9 +1,14 @@
 
 ### A Dockerized Nodejs Express Boilerplate with TypeScript
 
+#### Why
+The main idea behind this app is that, We like you to be focused on your business and not spending hours in project configuration. 
+
+Give this a try!! We are more than happy to hear your feedback or feature request.
+
 #### About
 
-A comprehensive template. Works out of the box for most Node.js projects
+A comprehensive template. Works out of the box for most Node.js projects with following pieces 
 
 - [Docker] as the container service to isolate the environment.
 - [Node.js](Long-Term-Support Version) as the run-time environment to run JavaScript.
