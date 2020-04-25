@@ -1,0 +1,124 @@
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: Authorization
+    APIKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+  responses:
+    BadRequestError:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: Validation failed
+    UnauthorizedError:
+      description: API Key is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: API Key is required
+    ForbiddenError:
+      description: Access is not allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: You do not have access to this resource
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: This resource does not exist
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: Unexpected error occurred
+  parameters:
+    offset:
+      in: query
+      name: offset
+      description: The number of items to skip before starting to collect the result set
+      schema:
+        type: integer
+        minimum: 0
+        default: '0'
+    limit:
+      in: query
+      name: limit
+      description: The numbers of items to return
+      schema:
+        type: integer
+        minimum: 0
+        default: 10
+    todolistId:
+      in: path
+      name: todolistId
+      description: Todolist ID
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Message:
+      properties:
+        message:
+          type: string
+    Todolist:
+      required:
+        - id
+        - title
+      properties:
+        id:
+          description: Todolist ID
+          type: string
+        title:
+          description: Todolist title
+          type: string
+    TodolistPagination:
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todolist'
+    Todoitem:
+      required:
+        - id
+      properties:
+        id:
+          description: Todoitem ID
+          type: string
+          format: uuid
+        completed:
+          description: Is it completed?
+          type: boolean
+        description:
+          description: Todoitem description
+          type: string
+          minimum: 3
+          maximum: 255
+    TodoitemPagination:
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todoitem'

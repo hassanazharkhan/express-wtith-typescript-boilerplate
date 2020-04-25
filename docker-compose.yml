@@ -1,0 +1,23 @@
+version: '3.0'
+
+services:
+    api:
+        build: .
+        environment:
+            DB_HOST: postgres
+            DB_PORT: 5432
+            DB_NAME: postgres
+            DB_USERNAME: postgres
+            DB_PASSWORD: postgres
+        ports:
+            - 3000:3000
+        volumes:
+            - ./src:/app/src
+
+    postgres:
+        image: postgres:9.5.20
+        ports:
+            # debugging purposes only, you may change it if its conflicting
+            - 5432:5432
+        volumes:
+            - /var/lib/postgresql/data

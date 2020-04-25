@@ -1,0 +1,10 @@
+{
+    "editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+    "cSpell.words": [
+        "postgres",
+        "typedi",
+        "typeorm"
+    ]
+}
