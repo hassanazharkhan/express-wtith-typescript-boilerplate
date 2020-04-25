@@ -1,3 +1,5 @@
+  [![Dependency Status](https://david-dm.org/Microsoft/TypeScript-Node-Starter.svg)](https://david-dm.org/Microsoft/TypeScript-Node-Starter) [![Build Status](https://travis-ci.org/Microsoft/TypeScript-Node-Starter.svg?branch=master)](https://travis-ci.org/Microsoft/TypeScript-Node-Starter)
+
 
 ### A Dockerized Nodejs Express Boilerplate with TypeScript
 
@@ -5,6 +7,8 @@
 The main idea behind this app is that, We like you to be focused on your business and not spending hours in project configuration. 
 
 Give this a try!! We are more than happy to hear your feedback or feature request.
+
+---
 
 #### About
 
@@ -20,6 +24,8 @@ A comprehensive template. Works out of the box for most Node.js projects with fo
 - [Helmet] Helmet helps you secure your Express apps by setting various HTTP headers. It’s not a silver bullet, but it can help!
 - [Swagger] API Tool to describe and document your api
 
+---
+
 #### Features
 
 + TypeScript
@@ -31,6 +37,7 @@ A comprehensive template. Works out of the box for most Node.js projects with fo
 + Example configuration for GitHub Actions
 
 ---
+
 ### Getting Started
 
 #### Docker
