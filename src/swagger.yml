@@ -1,0 +1,437 @@
+paths:
+  /:
+    get:
+      tags:
+        - Default
+      summary: Health check
+      description: Returns 'Hello World' if the server has started.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+              example:
+                message: Hello World
+        500:
+          $ref: '#/components/responses/InternalError'
+  /todos:
+    get:
+      tags:
+        - Todolist
+      summary: List
+      description: Returns paginated Todo list
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodolistPagination'
+              example:
+                total: 2
+                data:
+                  - id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                    title: Vacation Preparation
+                  - id: 2efa52e2-e9fd-4bd0-88bc-0132b2e837d9
+                    title: Final Year Project
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+        - Todolist
+      summary: Create
+      description: Create a Todo list with Todo items
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  description: Todolist title
+                  type: string
+                  minimum: 3
+                  maximum: 255
+                items:
+                  description: Todoitems for the new todolist
+                  type: array
+                  items:
+                    description: Todoitem description
+                    type: string
+                    minimum: 3
+                    maximum: 255
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todolist'
+              example:
+                id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                title: Vacation Preparation
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /todos/{todolistId}:
+    put:
+      tags:
+        - Todolist
+      summary: Update
+      description: Update a Todo list
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: '#/components/parameters/todolistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+             schema:
+               type: object
+               required:
+                 - title
+               properties:
+                 title:
+                   description: Todolist title
+                   type: string
+                   minimum: 3
+                   maximum: 255
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todolist'
+              example:
+                id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                title: Vacation Preparation
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+        - Todolist
+      summary: Delete
+      description: Delete a Todo list
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: '#/components/parameters/todolistId'
+      responses:
+        204:
+          description: Deleted
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /todos/{todolistId}/items:
+    get:
+      tags:
+        - Todoitem
+      summary: List
+      description: Returns paginated Todo items for a Todo list
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/todolistId'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoitemPagination'
+              example:
+                total: 2
+                data:
+                  - id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                    completed: false
+                    description: Buy tickets
+                  - id: 2efa52e2-e9fd-4bd0-88bc-0132b2e837d9
+                    completed: true
+                    description: Arrange a camping tent
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+        - Todoitem
+      summary: Bulk Create
+      description: Create Todo items in bulk for a Todo list
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: '#/components/parameters/todolistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                description: Todoitem description
+                type: string
+                minimum: 3
+                maximum: 255
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todoitem'
+              example:
+                - id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                  completed: false
+                  description: Buy tickets
+                - id: 2efa52e2-e9fd-4bd0-88bc-0132b2e837d9
+                  completed: false
+                  description: Arrange a camping tent
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /items:
+    patch:
+      tags:
+        - Todoitem
+      summary: Bulk Update
+      description: Update Todo items in bulk
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Todoitem'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todoitem'
+              example:
+                - id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                  completed: false
+                  description: Buy tickets
+                - id: 2efa52e2-e9fd-4bd0-88bc-0132b2e837d9
+                  completed: true
+                  description: Arrange a camping tent
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+        - Todoitem
+      summary: Bulk Delete
+      description: Delete Todo items in bulk
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                description: Todoitem ID
+                type: string
+                format: uuid
+      responses:
+        204:
+          description: Deleted
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        500:
+          $ref: '#/components/responses/InternalError'
+          
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: Authorization
+    APIKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+  responses:
+    BadRequestError:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: Validation failed
+    UnauthorizedError:
+      description: API Key is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: API Key is required
+    ForbiddenError:
+      description: Access is not allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: You do not have access to this resource
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: This resource does not exist
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+          example:
+            message: Unexpected error occurred
+  parameters:
+    offset:
+      in: query
+      name: offset
+      description: The number of items to skip before starting to collect the result set
+      schema:
+        type: integer
+        minimum: 0
+        default: '0'
+    limit:
+      in: query
+      name: limit
+      description: The numbers of items to return
+      schema:
+        type: integer
+        minimum: 0
+        default: 10
+    todolistId:
+      in: path
+      name: todolistId
+      description: Todolist ID
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Message:
+      properties:
+        message:
+          type: string
+    Todolist:
+      required:
+        - id
+        - title
+      properties:
+        id:
+          description: Todolist ID
+          type: string
+        title:
+          description: Todolist title
+          type: string
+    TodolistPagination:
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todolist'
+    Todoitem:
+      required:
+        - id
+      properties:
+        id:
+          description: Todoitem ID
+          type: string
+          format: uuid
+        completed:
+          description: Is it completed?
+          type: boolean
+        description:
+          description: Todoitem description
+          type: string
+          minimum: 3
+          maximum: 255
+    TodoitemPagination:
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todoitem'    

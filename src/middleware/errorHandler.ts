@@ -1,10 +1,10 @@
 import { Boom } from "@hapi/boom";
 import { ValidationError } from "@hapi/joi";
-import express from "express";
+import {Request, Response, NextFunction} from "express";
 
 import config from "../config";
 
-export default function ErrorHandler(err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void {
+export default function ErrorHandler(err: Error, req: Request, res: Response, next: NextFunction): void {
     const joiErr = err as ValidationError;
     if (joiErr.isJoi) {
         res.status(400).send({ message: joiErr.details[0].message });

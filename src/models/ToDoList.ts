@@ -14,10 +14,10 @@ export class ToDoList {
     @Column()
     title: string;
 
-    @OneToMany(type => ToDoItem, toDoItem => toDoItem.toDoList)
+    @OneToMany(() => ToDoItem, toDoItem => toDoItem.toDoList)
     toDoItems: ToDoItem[];
 
-    @ManyToOne(type => User)
+    @ManyToOne(() => User)
     user: User;
 
     @CreateDateColumn()

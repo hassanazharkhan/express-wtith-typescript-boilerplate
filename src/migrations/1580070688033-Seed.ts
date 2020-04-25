@@ -1,9 +1,9 @@
-import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
+import { MigrationInterface, getRepository } from "typeorm";
 
 import { User } from "../models/User";
 
 export class Seed1580070688033 implements MigrationInterface {
-    public async up(_queryRunner: QueryRunner): Promise<void> {
+    public async up(): Promise<void> {
         const user = getRepository(User).create({
             username: 'user1',
         });
@@ -11,7 +11,7 @@ export class Seed1580070688033 implements MigrationInterface {
         await getRepository(User).save(user);
     }
 
-    public async down(_queryRunner: QueryRunner): Promise<void> {
+    public async down(): Promise<void> {
         const user = await getRepository(User).findOne({
             where: { username: 'user1' },
         });

@@ -1,11 +1,6 @@
+import { Container } from "typedi";
+
 import { App } from './app';
-import { DefaultController, DocsController, ToDoItemController, ToDoListController } from "./controllers";
 
-const application = new App([
-    new DefaultController(),
-    new DocsController(),
-    new ToDoItemController(),
-    new ToDoListController()]
-);
-
+const application = Container.get(App);
 application.startExpressServer();

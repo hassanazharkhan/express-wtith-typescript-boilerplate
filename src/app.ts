@@ -6,8 +6,11 @@ import bodyParser from "body-parser";
 import express from 'express';
 import bunyanMiddleware from "express-bunyan-logger";
 import helmet from "helmet";
-import {Container } from "typedi";
-import { createConnection } from "typeorm";
+import { useExpressServer, useContainer as routingUseContainer } from "routing-controllers";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from "swagger-ui-express";
+import { Inject, Container, Service } from "typedi";
+import { createConnection, useContainer as typeormUseContainer } from "typeorm";
 
 import config from "./config";
 import ErrorHandler from './middleware/errorHandler';
@@ -15,15 +18,20 @@ import { UserService } from "./services/User";
 import { logger } from "./utils";
 
 export class App {
-  public readonly app: express.Application;
-  private readonly userService: UserService;
+  private readonly app: express.Application;
+  private swaggerDoc: object;
 
-  constructor(controllers: Array<any>) {
+  @Inject()
+  private readonly userService: UserService
+
+  constructor() {
       this.app = express();
-      this.userService = Container.get(UserService);
 
       this.initializeMiddleware();
-      this.initializeControllers(controllers);
+      this.configureSwagger();
+      this.initializeSwagger()
+      this.configureDependencyInjection()
+      this.initializeControllers();
       this.initializeErrorhandler();
   }
 
@@ -41,12 +49,33 @@ export class App {
       }
   }
 
-  private initializeControllers(controllers: Array<any>): void {
-      if (controllers.length) {
-          controllers.forEach((controller: any) => {
-              this.app.use('/', controller.router);
-          });
-      }
+  private configureSwagger(): void {
+      this.swaggerDoc = swaggerJSDoc({
+          definition: {
+              openapi: '3.0.0',
+              info: {
+                  title: 'Swagger Examples',
+                  version: '1.0.0',
+              },
+          },
+          apis: ['./src/*.yml'],
+      });
+  }
+
+  private initializeSwagger(): void {
+      this.app.use('/docs', swaggerUI.serve);
+      this.app.get('/docs', swaggerUI.setup(this.swaggerDoc));
+  }
+
+  private configureDependencyInjection(): void {
+      routingUseContainer(Container);
+      typeormUseContainer(Container);
+  }
+
+  private initializeControllers(): void {
+      useExpressServer(this.app, {
+          controllers: [__dirname + "/controllers/*.ts"],
+      });
   }
 
   private initializeErrorhandler(): void {

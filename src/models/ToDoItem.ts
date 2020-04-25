@@ -13,7 +13,7 @@ export class ToDoItem {
     @Column({ default: false })
     completed: boolean;
 
-    @ManyToOne(type => ToDoList, { onDelete: 'CASCADE' })
+    @ManyToOne(() => ToDoList, { onDelete: 'CASCADE' })
     toDoList: ToDoList;
 
     @CreateDateColumn()
