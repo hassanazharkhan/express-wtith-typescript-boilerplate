@@ -5,8 +5,7 @@ import { Response, Request } from "express";
 import {JsonController, Req, Res, Get, Post, Patch, Delete, UseBefore } from "routing-controllers";
 
 import { Authenticate } from "../middleware/authenticate";
-import { ToDoItemService } from "../services/ToDoItem";
-import { ToDoListService } from "../services/ToDoList";
+import { ToDoItemService, ToDoListService } from "../services";
 import { logger } from "../utils";
 
 @JsonController()

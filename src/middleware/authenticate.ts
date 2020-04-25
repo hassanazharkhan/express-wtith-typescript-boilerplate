@@ -2,9 +2,9 @@ import "reflect-metadata";
 import Boom from "@hapi/boom";
 import { Request, Response, NextFunction } from "express";
 import {ExpressMiddlewareInterface} from "routing-controllers";
-import { Container, Inject } from "typedi";
+import { Inject } from "typedi";
 
-import { UserService } from "../services/User";
+import { UserService } from "../services";
 
 export class Authenticate implements ExpressMiddlewareInterface {
     @Inject()

@@ -9,12 +9,12 @@ import helmet from "helmet";
 import { useExpressServer, useContainer as routingUseContainer } from "routing-controllers";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
-import { Inject, Container, Service } from "typedi";
+import { Inject, Container } from "typedi";
 import { createConnection, useContainer as typeormUseContainer } from "typeorm";
 
 import config from "./config";
 import ErrorHandler from './middleware/errorHandler';
-import { UserService } from "./services/User";
+import { UserService } from "./services";
 import { logger } from "./utils";
 
 export class App {
