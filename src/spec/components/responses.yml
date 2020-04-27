@@ -1,0 +1,42 @@
+components:
+    responses:
+      BadRequestError:
+        description: Validation failed
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+            example:
+              message: Validation failed
+      UnauthorizedError:
+        description: API Key is missing or invalid
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+            example:
+              message: API Key is required
+      ForbiddenError:
+        description: Access is not allowed
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+            example:
+              message: You do not have access to this resource
+      NotFoundError:
+        description: Resource not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+            example:
+              message: This resource does not exist
+      InternalError:
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+            example:
+              message: Unexpected error occurred

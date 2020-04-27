@@ -1,0 +1,58 @@
+components:
+    securitySchemes:
+      APIKeyHeader:
+        type: apiKey
+        in: header
+        name: Authorization
+      APIKeyQuery:
+        type: apiKey
+        in: query
+        name: apikey
+    schemas:
+        Message:
+          properties:
+            message:
+              type: string
+        Todolist:
+          required:
+            - id
+            - title
+          properties:
+            id:
+              description: Todolist ID
+              type: string
+            title:
+              description: Todolist title
+              type: string
+        TodolistPagination:
+          properties:
+            total:
+              type: integer
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Todolist'
+        Todoitem:
+          required:
+            - id
+          properties:
+            id:
+              description: Todoitem ID
+              type: string
+              format: uuid
+            completed:
+              description: Is it completed?
+              type: boolean
+            description:
+              description: Todoitem description
+              type: string
+              minimum: 3
+              maximum: 255
+        TodoitemPagination:
+          properties:
+            total:
+              type: integer
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Todoitem'    

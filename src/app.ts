@@ -18,14 +18,14 @@ import { UserService } from "./services";
 import { logger } from "./utils";
 
 export class App {
-  private readonly app: express.Application;
+  public readonly expressApplication: express.Application;
   private swaggerDoc: object;
 
   @Inject()
   private readonly userService: UserService
 
   constructor() {
-      this.app = express();
+      this.expressApplication = express();
 
       this.initializeMiddleware();
       this.configureSwagger();
@@ -36,11 +36,11 @@ export class App {
   }
 
   private initializeMiddleware(): void {
-      this.app.use(helmet({ hidePoweredBy: true }));
-      this.app.use(bodyParser.json());
+      this.expressApplication.use(helmet({ hidePoweredBy: true }));
+      this.expressApplication.use(bodyParser.json());
 
       if (config.env !== 'test') {
-          this.app.use(bunyanMiddleware({
+          this.expressApplication.use(bunyanMiddleware({
               logger,
               parseUA: false,
               excludes: ['response-hrtime', 'req-headers', 'res-headers'],
@@ -58,13 +58,13 @@ export class App {
                   version: '1.0.0',
               },
           },
-          apis: ['./src/*.yml'],
+          apis: ['./src/spec/*.yml'],
       });
   }
 
   private initializeSwagger(): void {
-      this.app.use('/docs', swaggerUI.serve);
-      this.app.get('/docs', swaggerUI.setup(this.swaggerDoc));
+      this.expressApplication.use('/docs', swaggerUI.serve);
+      this.expressApplication.get('/docs', swaggerUI.setup(this.swaggerDoc));
   }
 
   private configureDependencyInjection(): void {
@@ -73,18 +73,18 @@ export class App {
   }
 
   private initializeControllers(): void {
-      useExpressServer(this.app, {
+      useExpressServer(this.expressApplication, {
           controllers: [__dirname + "/controllers/*.ts"],
       });
   }
 
   private initializeErrorhandler(): void {
-      this.app.use(ErrorHandler);
+      this.expressApplication.use(ErrorHandler);
   }
 
   public async startExpressServer(): Promise<Server> {
       const connection = await createConnection();
-      const server = await this.app.listen(config.server.port);
+      const server = await this.expressApplication.listen(config.server.port);
 
       if (connection) {
           logger.info(`Hey! I'm connected to database...`);
