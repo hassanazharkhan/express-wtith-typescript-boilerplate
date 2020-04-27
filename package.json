@@ -6,12 +6,22 @@
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx --fix",
     "clean": "rimraf coverage build tmp",
-    "watch": "nodemon -x 'ts-node' src/server.ts | bunyan -o simple",
+    "watch": "nodemon -e 'yml, yaml' -x 'ts-node' src/server.ts | bunyan -o simple",
     "typeorm": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js",
     "build": "tsc -p tsconfig.release.json",
     "build:watch": "tsc -w -p tsconfig.release.json",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    
+    "test": "jest --passWithNoTests",
+    "test:unit": "npm test -- tests/unit",
+    "test:integration": "npm test -- tests/integration",
+    
+    "test:watch": "npm test -- --watch",
+    "test:watch:unit": "npm run test:unit -- --watch",
+    "test:watch:integration": "npm run test:integration -- --watch",
+    
+    "test:coverage": "npm test -- --coverage",
+    "test:coverage:unit": "npm run test:unit -- --coverage",
+    "test:coverage:integration": "npm run test:integration -- --coverage"
   },
   "dependencies": {
     "@hapi/boom": "^9.0.0",
@@ -24,13 +34,13 @@
     "@types/helmet": "^0.0.45",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.2",
+    "@types/supertest": "^2.0.8",
     "@types/swagger-jsdoc": "^3.0.2",
     "@types/swagger-ui-express": "^4.1.1",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
     "body-parser": "^1.19.0",
     "bunyan": "^1.8.12",
-    "routing-controllers": "^0.8.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "convict": "^5.2.0",
@@ -41,6 +51,7 @@
     "helmet": "^3.21.2",
     "jest": "^25.3.0",
     "pg": "^7.17.1",
+    "routing-controllers": "^0.8.1",
     "supertest": "^4.0.2",
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.3",
