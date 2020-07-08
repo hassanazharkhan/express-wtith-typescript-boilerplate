@@ -10,7 +10,7 @@
     "typeorm": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js",
     "build": "tsc -p tsconfig.release.json",
     "build:watch": "tsc -w -p tsconfig.release.json",
-    "test": "jest --passWithNoTests",
+    "test": "npm run build && npm run lint && jest --passWithNoTests",
     "test:unit": "npm test -- tests/unit",
     "test:integration": "npm test -- tests/integration",
     "test:watch": "npm test -- --watch",

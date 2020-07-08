@@ -15,7 +15,7 @@ export class ToDoListController {
         private toDoListService: ToDoListService) {}
 
     @Get('/todos')
-    public async getToDoListsForUser(@Req() req: Request, @Res() res: Response): Promise<Response<unknown>> {
+    public async getToDoListsForUser(@Req() req: Request, @Res() res: Response): Promise<Response> {
         const { limit, offset } = await Joi
             .object({
                 offset: Joi.number().integer().default(0).failover(0),
@@ -35,7 +35,7 @@ export class ToDoListController {
     }
 
     @Post('/todos')
-    public async createToDoListForUser(@Req() req: Request, @Res() res: Response): Promise<Response<unknown>> {
+    public async createToDoListForUser(@Req() req: Request, @Res() res: Response): Promise<Response> {
         const { title, items } = await Joi
             .object({
                 title: Joi.string().min(3).max(255).required(),
@@ -54,7 +54,7 @@ export class ToDoListController {
     }
 
     @Put('/todos/:todolistId')
-    public async updateToDoList(@Req() req: Request, @Res() res: Response): Promise<Response<unknown>> {
+    public async updateToDoList(@Req() req: Request, @Res() res: Response): Promise<Response> {
         const { todolistId, title } = await Joi
             .object({
                 todolistId: Joi.string().uuid().required(),
@@ -77,7 +77,7 @@ export class ToDoListController {
     }
 
     @Delete('/todos/:todolistId')
-    public async removeToDoList(@Req() req: Request, @Res() res: Response): Promise<Response<unknown>> {
+    public async removeToDoList(@Req() req: Request, @Res() res: Response): Promise<Response> {
         const { todolistId } = await Joi
             .object({
                 todolistId: Joi.string().uuid().required(),

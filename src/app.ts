@@ -32,7 +32,6 @@ export class App {
       this.initializeSwagger()
       this.configureDependencyInjection()
       this.initializeControllers();
-      this.initializeErrorhandler();
   }
 
   private initializeMiddleware(): void {
@@ -79,6 +78,7 @@ export class App {
           defaultErrorHandler: false,
       });
   }
+
   public async startExpressServer(): Promise<Server> {
       const connection = await createConnection();
       const server = await this.expressApplication.listen(config.server.port);

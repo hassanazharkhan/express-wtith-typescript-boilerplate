@@ -4,7 +4,7 @@ import {JsonController, Req, Res, Get } from "routing-controllers";
 @JsonController()
 export class DefaultController {
     @Get("/")
-    public helathCheck(@Req() req: Request, @Res() res: Response): Response<unknown> {
+    public helathCheck(@Req() req: Request, @Res() res: Response): Response {
         return res.send({ message: 'Hello World' });
     }
 }
