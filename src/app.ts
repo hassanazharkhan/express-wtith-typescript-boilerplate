@@ -13,7 +13,7 @@ import { Inject, Container } from "typedi";
 import { createConnection, useContainer as typeormUseContainer } from "typeorm";
 
 import config from "./config";
-import ErrorHandler from './middleware/errorHandler';
+import { ErrorHandler } from './middleware/errorHandler';
 import { UserService } from "./services";
 import { logger } from "./utils";
 
@@ -75,13 +75,10 @@ export class App {
   private initializeControllers(): void {
       useExpressServer(this.expressApplication, {
           controllers: [__dirname + "/controllers/*.ts"],
+          middlewares: [ErrorHandler],
+          defaultErrorHandler: false,
       });
   }
-
-  private initializeErrorhandler(): void {
-      this.expressApplication.use(ErrorHandler);
-  }
-
   public async startExpressServer(): Promise<Server> {
       const connection = await createConnection();
       const server = await this.expressApplication.listen(config.server.port);
