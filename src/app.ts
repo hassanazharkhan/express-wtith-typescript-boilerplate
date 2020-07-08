@@ -19,7 +19,7 @@ import { logger } from "./utils";
 
 export class App {
   public readonly expressApplication: express.Application;
-  private swaggerDoc: object;
+  private swaggerDoc: unknown;
 
   @Inject()
   private readonly userService: UserService
@@ -57,7 +57,7 @@ export class App {
                   version: '1.0.0',
               },
           },
-          apis: ['./src/spec/*.yml'],
+          apis: ['./src/spec/*.yml', './src/spec/components/*.yml'],
       });
   }
 
