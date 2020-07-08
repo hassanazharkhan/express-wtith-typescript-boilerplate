@@ -18,6 +18,6 @@ services:
         image: postgres:9.5.20
         ports:
             # debugging purposes only, you may change it if its conflicting
-            - 5432:5432
+            - 5433:5432
         volumes:
             - /var/lib/postgresql/data
