@@ -57,7 +57,7 @@
     "@types/supertest": "2.0.10",
     "@types/jest": "26.0.7",
     "supertest": "4.0.2",
-    "ts-jest": "26.1.4",
+    "ts-jest": "26.2.0",
     "jest": "26.2.1",
     "nodemon": "2.0.4"
   }
