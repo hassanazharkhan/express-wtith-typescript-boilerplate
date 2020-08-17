@@ -35,7 +35,7 @@ export class App {
   }
 
   private initializeMiddleware(): void {
-      this.expressApplication.use(helmet({ hidePoweredBy: true }));
+      this.expressApplication.use(helmet());
       this.expressApplication.use(bodyParser.json());
 
       if (config.env !== 'test') {
