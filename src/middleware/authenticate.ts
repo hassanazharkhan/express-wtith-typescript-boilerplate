@@ -10,7 +10,7 @@ export class Authenticate implements ExpressMiddlewareInterface {
     @Inject()
     private readonly userService: UserService
 
-    async use(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async use(req: Request, _res: Response, next: NextFunction): Promise<void> {
         let apiKey: string | null = null;
 
         const authHeader = (req.headers.authorization || '').split(' ');

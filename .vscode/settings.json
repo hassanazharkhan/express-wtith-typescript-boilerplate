@@ -3,6 +3,7 @@
 		"source.fixAll": true
 	},
     "cSpell.words": [
+        "middlewares",
         "postgres",
         "typedi",
         "typeorm"

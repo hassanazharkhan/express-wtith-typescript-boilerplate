@@ -9,7 +9,7 @@ import helmet from "helmet";
 import { useExpressServer, useContainer as routingUseContainer } from "routing-controllers";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
-import { Inject, Container } from "typedi";
+import { Container, Service } from "typedi";
 import { createConnection, useContainer as typeormUseContainer } from "typeorm";
 
 import config from "./config";
@@ -17,14 +17,11 @@ import { ErrorHandler } from './middleware/errorHandler';
 import { UserService } from "./services";
 import { logger } from "./utils";
 
+@Service()
 export class App {
   public readonly expressApplication: express.Application;
   private swaggerDoc: unknown;
-
-  @Inject()
-  private readonly userService: UserService
-
-  constructor() {
+  constructor(private readonly userService: UserService) {
       this.expressApplication = express();
 
       this.initializeMiddleware();
