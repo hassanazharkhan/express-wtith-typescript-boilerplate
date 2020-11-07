@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx --fix",
-    "clean": "rimraf coverage build tmp",
+    "clean": "rimraf cohttps://github.com/hassanazharkhan/Express-Wtith-Typescript-Boilerplate/pull/147/conflict?name=package.json&ancestor_oid=af9e43d6c218c268c6c4697500c7f8899acedba9&base_oid=720005bb66ebe0c9bd50b268796fbac26cf9be26&head_oid=0138fbf146d82da1c698f1476728ca8a87572c50verage build tmp",
     "watch": "nodemon -e 'yml, yaml, js, ts, tsx, json' -x 'ts-node' src/server.ts | bunyan -o simple",
     "typeorm": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js",
     "build": "tsc -p tsconfig.release.json",
