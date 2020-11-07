@@ -46,7 +46,7 @@
     "helmet": "4.1.1",
     "pg": "8.4.2",
     "routing-controllers": "0.8.1",
-    "swagger-jsdoc": "4.3.0",
+    "swagger-jsdoc": "5.0.0",
     "swagger-ui-express": "4.1.4",
     "ts-node": "9.0.0",
     "typedi": "0.8.0",
