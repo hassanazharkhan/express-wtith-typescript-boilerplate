@@ -8,4 +8,4 @@ RUN npm install
 COPY . .
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["npm", "run" ,"watch"]
+CMD ["npm", "run" ,"dev"]
