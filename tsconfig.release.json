@@ -3,9 +3,13 @@
     "compilerOptions": {
       "rootDir": ".",
       "outDir": "dist",
-      "removeComments": true
+      "removeComments": true,
+      "sourceMap": false
     },
     "include": [
-      "src/**/*"
+      "./"
+    ],
+    "exclude": [
+      "./tests"
     ]
   }
