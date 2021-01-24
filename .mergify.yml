@@ -1,4 +1,4 @@
-- name: automatic merge of Dependabot PRs
+- name: Automatic merge of Dependabot PRs
     actions:
       comment:
         message: Thanks Dependabot!
