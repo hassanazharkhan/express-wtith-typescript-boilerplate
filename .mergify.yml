@@ -1,4 +1,5 @@
-- name: Automatic merge of Dependabot PRs
+pull_request_rules:
+  - name: Automatic merge of Dependabot PRs
     actions:
       comment:
         message: Thanks Dependabot!
