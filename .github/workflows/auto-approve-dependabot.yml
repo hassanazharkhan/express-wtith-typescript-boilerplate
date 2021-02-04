@@ -6,7 +6,7 @@ on:
 
 jobs:
   autoapprove:
-    name: Auto Approve a PR by dependabot # Name of the job
+    name: by dependabot # Name of the job
     runs-on: ubuntu-latest # Environment on which the job runs
     steps:
       - name: Auto approve
