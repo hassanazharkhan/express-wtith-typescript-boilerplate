@@ -17,6 +17,6 @@ pull_request_rules:
       - author~=dependabot
       - "#approved-reviews-by>=1"
       - "#changes-requested-reviews-by=0"
-      - status-success~=auto-approve / by dependabot
-      - status-success=continuous-integration / build (14.x)
-      - status-success=security/snyk
+      - status-success~=auto-approve
+      - status-success=build (14.x)
+      - status-success=security/snyk (hassanazharkhan)
