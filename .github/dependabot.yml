@@ -1,0 +1,73 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "00:00"
+  open-pull-requests-limit: 99
+  target-branch: master
+  versioning-strategy: widen
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.22
+    - 15.0.0
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.14.0
+    - 4.14.1
+    - 4.16.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.14.0
+    - 4.14.1
+    - 4.16.0
+  - dependency-name: ts-jest
+    versions:
+    - 26.5.0
+  - dependency-name: eslint
+    versions:
+    - 7.18.0
+    - 7.19.0
+  - dependency-name: swagger-jsdoc
+    versions:
+    - 6.0.1
+    - 6.0.2
+  - dependency-name: supertest
+    versions:
+    - 6.1.1
+    - 6.1.3
+  - dependency-name: typedi
+    versions:
+    - 0.10.0
+  - dependency-name: "@types/jest"
+    versions:
+    - 26.0.20
+  - dependency-name: "@types/express"
+    versions:
+    - 4.17.11
+  - dependency-name: nodemon
+    versions:
+    - 2.0.7
+  - dependency-name: bunyan
+    versions:
+    - 1.8.15
+  - dependency-name: typeorm
+    versions:
+    - 0.2.30
+  - dependency-name: "@types/swagger-jsdoc"
+    versions:
+    - 6.0.0
+  - dependency-name: class-transformer
+    versions:
+    - 0.3.2
+  - dependency-name: class-validator
+    versions:
+    - 0.13.1
+  - dependency-name: helmet
+    versions:
+    - 4.4.1
+  - dependency-name: "@types/convict"
+    versions:
+    - 5.2.2
