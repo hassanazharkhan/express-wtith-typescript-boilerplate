@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 import { ToDoItem } from './to-do-item';
-import { User } from './user';
+import { User } from './users';
 
 @Entity({ name: 'to-do-list' })
 export class ToDoList {

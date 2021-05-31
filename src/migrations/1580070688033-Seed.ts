@@ -1,6 +1,6 @@
 import { MigrationInterface, getRepository } from 'typeorm';
 
-import { User } from '../models/user';
+import { User } from '../models/users';
 
 export class Seed1580070688033 implements MigrationInterface {
   public async up(): Promise<void> {

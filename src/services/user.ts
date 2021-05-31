@@ -3,7 +3,7 @@ import Boom from '@hapi/boom';
 import { Service } from 'typedi';
 import { getConnection } from 'typeorm';
 
-import { User } from '../models/user';
+import { User } from '../models/users';
 
 @Service()
 export class UserService {
