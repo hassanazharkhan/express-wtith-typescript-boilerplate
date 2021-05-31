@@ -1,6 +1,6 @@
-import { Container } from "typedi";
+import { Container } from 'typedi';
 
 import { App } from './app';
 
 const application = Container.get(App);
-application.startExpressServer();
+void application.startExpressServer();

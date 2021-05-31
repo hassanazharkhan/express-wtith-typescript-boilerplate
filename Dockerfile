@@ -7,5 +7,5 @@ RUN npm install
 
 COPY . .
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./entry-point.sh"]
 CMD ["npm", "run" ,"dev"]

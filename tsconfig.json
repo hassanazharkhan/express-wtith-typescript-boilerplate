@@ -16,6 +16,7 @@
         ]
     },
     "include": [
+        "ormconfig.ts",
         "src/**/*",
         "tests/**/*"
     ]
