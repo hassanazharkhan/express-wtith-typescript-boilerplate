@@ -41,15 +41,26 @@ A comprehensive template. Works out of the box for most Node.js projects with fo
 ### Getting Started
 
 #### Docker
+
+> **_NOTE:_** Not recommended for windows user
+
 - Clone the repository
 - Run `docker-compose up`
 
 #### Without Docker
+
 - Clone the repository
 - Run `npm install`
-- Run `npm run typeorm migration:run`*
-- Run `npm run watch`
+- Run `npm run typeorm schema:sync`
+- Run `npm run typeorm migration:run`\*
+- Run `npm i ts-node -g`
+- Run `npm run dev`
 
+> **_NOTE:_**
+
+    You need to install postgreSQL manually for the installation guide [follow link]
+    (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+    And see the defaults in config.ts.
 \* You need to set environment variables to provide configuration for database connection. Please see `src/config.ts` for environment variable names.
 
 ---
