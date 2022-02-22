@@ -38,6 +38,8 @@ A comprehensive template. Works out of the box for most Node.js projects with fo
 
 ---
 
+##### Getting Started
+
 #### Docker
 
 > **_NOTE:_** Not recommended for windows user
