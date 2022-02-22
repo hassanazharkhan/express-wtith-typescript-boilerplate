@@ -7,7 +7,7 @@
     "lint": "eslint . --ext .ts,.tsx --fix",
     "clean": "rimraf coverage build tmp",
     "dev": "nodemon -e 'yml, yaml, js, ts, tsx, json' -x 'ts-node' src/server.ts | bunyan -o simple",
-    "typeorm": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js",
+    "typeorm":"node-require ts-node/register•/node_modules/typeorm/cli.js",
     "compile": "tsc -p tsconfig.release.json",
     "watch:compile": "tsc -w -p tsconfig.release.json",
     "test": "npm run compile && npm run lint && jest --passWithNoTests --runInBand --silent",
