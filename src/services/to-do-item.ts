@@ -13,7 +13,7 @@ export class ToDoItemService {
     return toDoItemRepo.findAndCount({
       skip: offset,
       take: limit,
-      where: { userId, list: toDoListId },
+      where: { toDoList: { id: toDoListId, userId } },
     });
   }
 
