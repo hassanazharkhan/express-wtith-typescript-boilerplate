@@ -47,7 +47,6 @@ export class ToDoListController {
       });
 
     const list = await this.toDoListService.createToDoListForUser(req.user.id, title);
-
     await this.toDoItemService.addTodoItems(list.id, items);
 
     return res.status(201).send({ id: list.id, title: list.title });
