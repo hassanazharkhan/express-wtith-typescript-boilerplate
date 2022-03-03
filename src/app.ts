@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { Server } from 'http';
 
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
 import bunyanMiddleware from 'express-bunyan-logger';
 import helmet from 'helmet';
@@ -32,6 +33,7 @@ export class App {
   }
 
   private initializeMiddleware(): void {
+    this.expressApplication.use(cors());
     this.expressApplication.use(helmet());
     this.expressApplication.use(bodyParser.json());
 
