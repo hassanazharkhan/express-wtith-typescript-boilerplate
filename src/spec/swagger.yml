@@ -13,11 +13,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Message'
+                $ref: "#/components/schemas/Message"
               example:
                 message: Hello World
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
   /todos:
     get:
       tags:
@@ -28,15 +28,15 @@ paths:
         - APIKeyHeader: []
         - APIKeyQuery: []
       parameters:
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/limit'
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TodolistPagination'
+                $ref: "#/components/schemas/TodolistPagination"
               example:
                 total: 2
                 data:
@@ -45,9 +45,9 @@ paths:
                   - id: 2efa52e2-e9fd-4bd0-88bc-0132b2e837d9
                     title: Final Year Project
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
     post:
       tags:
         - Todolist
@@ -84,16 +84,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Todolist'
+                $ref: "#/components/schemas/Todolist"
               example:
                 id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
                 title: Vacation Preparation
         400:
-          $ref: '#/components/responses/BadRequestError'
+          $ref: "#/components/responses/BadRequestError"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
   /todos/{todolistId}:
     put:
       tags:
@@ -104,41 +104,41 @@ paths:
         - APIKeyHeader: []
         - APIKeyQuery: []
       parameters:
-        - $ref: '#/components/parameters/todolistId'
+        - $ref: "#/components/parameters/todolistId"
       requestBody:
         required: true
         content:
           application/json:
-             schema:
-               type: object
-               required:
-                 - title
-               properties:
-                 title:
-                   description: Todolist title
-                   type: string
-                   minimum: 3
-                   maximum: 255
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  description: Todolist title
+                  type: string
+                  minimum: 3
+                  maximum: 255
       responses:
         200:
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Todolist'
+                $ref: "#/components/schemas/Todolist"
               example:
                 id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
                 title: Vacation Preparation
         400:
-          $ref: '#/components/responses/BadRequestError'
+          $ref: "#/components/responses/BadRequestError"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         403:
-          $ref: '#/components/responses/ForbiddenError'
+          $ref: "#/components/responses/ForbiddenError"
         404:
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
     delete:
       tags:
         - Todolist
@@ -148,20 +148,156 @@ paths:
         - APIKeyHeader: []
         - APIKeyQuery: []
       parameters:
-        - $ref: '#/components/parameters/todolistId'
+        - $ref: "#/components/parameters/todolistId"
       responses:
         204:
           description: Deleted
         400:
-          $ref: '#/components/responses/BadRequestError'
+          $ref: "#/components/responses/BadRequestError"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         403:
-          $ref: '#/components/responses/ForbiddenError'
+          $ref: "#/components/responses/ForbiddenError"
         404:
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
+  /designation:
+    get:
+      tags:
+        - Designation
+      summary: List
+      description: Returns paginated Designation list
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DesignationPagination"
+              example:
+                total: 2
+                data:
+                  - id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                    title: Lecturer
+                  - id: 2efa52e2-e9fd-4bd0-88bc-0132b2e837d9
+                    title: Assistant
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        500:
+          $ref: "#/components/responses/InternalError"
+    post:
+      tags:
+        - Designation
+      summary: Create
+      description: Create a Designation
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  description: Designation name
+                  type: string
+                  minimum: 3
+                  maximum: 255
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Designation"
+              example:
+                id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
+                title: Employee
+        400:
+          $ref: "#/components/responses/BadRequestError"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        500:
+          $ref: "#/components/responses/InternalError"
+  /designation/{designationId}:
+    put:
+      tags:
+        - Designation
+      summary: Update
+      description: Update a Designation
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: "#/components/parameters/designationId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  description: Designation name
+                  type: string
+                  minimum: 3
+                  maximum: 255
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Designation"
+              example:
+                id: c43a3b0d-e794-4a9c-9c12-e35c6b62de0c
+                title: Employee
+        400:
+          $ref: "#/components/responses/BadRequestError"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        500:
+          $ref: "#/components/responses/InternalError"
+    delete:
+      tags:
+        - Designation
+      summary: Delete
+      description: Delete a Designation
+      security:
+        - APIKeyHeader: []
+        - APIKeyQuery: []
+      parameters:
+        - $ref: "#/components/parameters/designationId"
+      responses:
+        204:
+          description: Deleted
+        400:
+          $ref: "#/components/responses/BadRequestError"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        500:
+          $ref: "#/components/responses/InternalError"
   /todos/{todolistId}/items:
     get:
       tags:
@@ -172,16 +308,16 @@ paths:
         - APIKeyHeader: []
         - APIKeyQuery: []
       parameters:
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/todolistId'
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/todolistId"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TodoitemPagination'
+                $ref: "#/components/schemas/TodoitemPagination"
               example:
                 total: 2
                 data:
@@ -192,9 +328,9 @@ paths:
                     completed: true
                     description: Arrange a camping tent
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
     post:
       tags:
         - Todoitem
@@ -204,7 +340,7 @@ paths:
         - APIKeyHeader: []
         - APIKeyQuery: []
       parameters:
-        - $ref: '#/components/parameters/todolistId'
+        - $ref: "#/components/parameters/todolistId"
       requestBody:
         required: true
         content:
@@ -224,7 +360,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Todoitem'
+                  $ref: "#/components/schemas/Todoitem"
               example:
                 - id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
                   completed: false
@@ -233,15 +369,15 @@ paths:
                   completed: false
                   description: Arrange a camping tent
         400:
-          $ref: '#/components/responses/BadRequestError'
+          $ref: "#/components/responses/BadRequestError"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         403:
-          $ref: '#/components/responses/ForbiddenError'
+          $ref: "#/components/responses/ForbiddenError"
         404:
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
   /items:
     patch:
       tags:
@@ -258,7 +394,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Todoitem'
+                $ref: "#/components/schemas/Todoitem"
       responses:
         200:
           description: OK
@@ -267,7 +403,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Todoitem'
+                  $ref: "#/components/schemas/Todoitem"
               example:
                 - id: c43a3b0d-e794-4a9c-9c12-e35c6b62de4c
                   completed: false
@@ -276,13 +412,13 @@ paths:
                   completed: true
                   description: Arrange a camping tent
         400:
-          $ref: '#/components/responses/BadRequestError'
+          $ref: "#/components/responses/BadRequestError"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         404:
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
     delete:
       tags:
         - Todoitem
@@ -305,8 +441,8 @@ paths:
         204:
           description: Deleted
         400:
-          $ref: '#/components/responses/BadRequestError'
+          $ref: "#/components/responses/BadRequestError"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         500:
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
