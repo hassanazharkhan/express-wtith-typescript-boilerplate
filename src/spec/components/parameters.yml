@@ -1,27 +1,34 @@
 components:
-    parameters:
-      offset:
-        in: query
-        name: offset
-        description: The number of items to skip before starting to collect the result set
-        schema:
-          type: integer
-          minimum: 0
-          default: '0'
-      limit:
-        in: query
-        name: limit
-        description: The numbers of items to return
-        schema:
-          type: integer
-          minimum: 0
-          default: 10
-      todolistId:
-        in: path
-        name: todolistId
-        description: Todolist ID
-        required: true
-        schema:
-          type: string
-          format: uuid
-    
+  parameters:
+    offset:
+      in: query
+      name: offset
+      description: The number of items to skip before starting to collect the result set
+      schema:
+        type: integer
+        minimum: 0
+        default: "0"
+    limit:
+      in: query
+      name: limit
+      description: The numbers of items to return
+      schema:
+        type: integer
+        minimum: 0
+        default: 10
+    todolistId:
+      in: path
+      name: todolistId
+      description: Todolist ID
+      required: true
+      schema:
+        type: string
+        format: uuid
+    designationId:
+      in: path
+      name: designationId
+      description: Designation ID
+      required: true
+      schema:
+        type: string
+        format: uuid

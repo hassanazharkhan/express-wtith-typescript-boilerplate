@@ -27,7 +27,7 @@ describe('To do', () => {
     const data = { title: 'some-title', items: ['some', 'items'] };
     const response = await request(expressApplication)
       .post('/todos')
-      .set({ accept: 'application/json', authorization: '' })
+      .set({ accept: 'application/json', authorization: 'Bearer 83cb2116-9f12-4af3-a206-e8d7d3a3e9cb' })
       .send(data)
       .expect('Content-Type', /json/)
       .expect(201);
