@@ -1,14 +1,14 @@
 import 'reflect-metadata';
 import { Service } from 'typedi';
-import { getConnection } from 'typeorm';
 
 import { ToDoItem } from '../models/to-do-item';
 import { logger } from '../utils';
+import { getConnection } from '../utils/connection';
 
 @Service()
 export class ToDoItemService {
   public async getTodoItemsForUser(userId: string, toDoListId: string, offset: number, limit: number): Promise<[ToDoItem[], number]> {
-    const toDoItemRepo = getConnection().getRepository(ToDoItem);
+    const toDoItemRepo = (await getConnection()) .getRepository(ToDoItem);
 
     return toDoItemRepo.findAndCount({
       skip: offset,
@@ -18,7 +18,7 @@ export class ToDoItemService {
   }
 
   public async addTodoItems(toDoListId: string, items: string[]): Promise<ToDoItem[]> {
-    const toDoItemRepo = getConnection().getRepository(ToDoItem);
+    const toDoItemRepo = (await getConnection()) .getRepository(ToDoItem);
 
     const toDoItems = items.map((description) => {
       return toDoItemRepo.create({
@@ -31,7 +31,7 @@ export class ToDoItemService {
   }
 
   public async updateTodoItemsForUser(userId: string, items: ToDoItem[]): Promise<ToDoItem[]> {
-    const toDoItemRepo = getConnection().getRepository(ToDoItem);
+    const toDoItemRepo = (await getConnection()) .getRepository(ToDoItem);
 
     const toDoItemIds = items
       .filter((item) => item.description != undefined || item.completed != undefined)
@@ -64,7 +64,7 @@ export class ToDoItemService {
   }
 
   public async removeTodoItemsForUser(userId: string, toDoItemIds: string[]): Promise<number> {
-    const toDoItemRepo = getConnection().getRepository(ToDoItem);
+    const toDoItemRepo = (await getConnection()) .getRepository(ToDoItem);
 
     if (!toDoItemIds.length) {
       return 0;

@@ -1,6 +1,8 @@
+import { ConnectionOptions } from 'typeorm';
 import config from './src/config';
 
 export = {
+  name: 'default',
   type: 'postgres',
   host: config.database.host,
   port: config.database.port,
@@ -21,4 +23,4 @@ export = {
   cli: {
     migrationsDir: 'src/migrations',
   },
-};
+} as ConnectionOptions;
