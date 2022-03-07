@@ -46,38 +46,31 @@ export class DesignationController {
     const list = await this.designationService.createDesignationForUser(req.user.id, name);
 
 
-    return res.status(201).send({ id: list.id, title: list.name });
+    return res.status(201).send({ id: list.id, name: list.name });
   }
 
   @Put('/designation/:designationId')
   public async updateDesignation(@Req() req: Request, @Res() res: Response): Promise<Response> {
-    //  const { designationId: incomingId } = req.params;
     const { designationId, name } = await Joi
       .object({
-        designationtId: Joi.string().uuid().required(),
+        designationId: Joi.string().uuid().required(),
         name: Joi.string().min(3).max(255).required(),
       })
       .validateAsync({
         designationId: req.params.designationId,
         name: req.body.name,
-
       });
-    // eslint-disable-next-line no-console
-    console.log();
 
-    let list = await this.designationService.getDesignation(designationId);
-    // eslint-disable-next-line no-console
-
-    if (list.userId !== req.user.id) {
+    let designation = await this.designationService.getDesignation(designationId);
+    if (designation.userId !== req.user.id) {
       throw Boom.forbidden('You do not have access to this resource');
     }
 
-    list.name = name;
-    list = await this.designationService.updateDesignation(list);
+    designation.name = name;
+    designation = await this.designationService.updateDesignation(designation);
 
-    return res.send({ id: list.id, name: list.name });
+    return res.send({ id: designation.id, name: designation.name });
   }
-
   @Delete('/designation/:designationId')
   public async removeDesignation(@Req() req: Request, @Res() res: Response): Promise<Response> {
     const { designationId } = await Joi
