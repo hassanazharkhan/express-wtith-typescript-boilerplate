@@ -46,7 +46,7 @@ export class DesignationController {
     const list = await this.designationService.createDesignationForUser(req.user.id, name);
 
 
-    return res.status(201).send({ id: list.id, name: list.name });
+    return res.status(201).send({ id: list.id, title: list.name });
   }
 
   @Put('/designation/:designationId')
