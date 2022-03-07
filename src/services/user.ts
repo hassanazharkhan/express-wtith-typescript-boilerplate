@@ -1,14 +1,14 @@
 import 'reflect-metadata';
 import Boom from '@hapi/boom';
 import { Service } from 'typedi';
-import { getConnection } from 'typeorm';
-
 import { User } from '../models/users';
+import { getConnection } from '../utils/connection';
+
 
 @Service()
 export class UserService {
   public async getAllUsers(offset: number, limit: number, select: (keyof User)[] = ['id', 'username']): Promise<[User[], number]> {
-    const userRepo = getConnection().getRepository(User);
+    const userRepo = (await getConnection()) .getRepository(User);
 
     return userRepo.findAndCount({
       take: limit,
@@ -18,7 +18,7 @@ export class UserService {
   }
 
   public async getUser(username: string): Promise<User> {
-    const userRepo = getConnection().getRepository(User);
+    const userRepo = (await getConnection()) .getRepository(User);
 
     const user = await userRepo.findOne({
       where: [
@@ -35,7 +35,7 @@ export class UserService {
   }
 
   public async getUserByAPIKey(apiKey: string): Promise<User> {
-    const userRepo = getConnection().getRepository(User);
+    const userRepo = (await getConnection()) .getRepository(User);
 
     const user = await userRepo.findOne({
       where: { apiKey },
@@ -55,7 +55,7 @@ export class UserService {
   }
 
   public async createUser(username: string): Promise<User> {
-    const userRepo = getConnection().getRepository(User);
+    const userRepo = (await getConnection()) .getRepository(User);
 
     const user = userRepo.create({ username });
     await userRepo.save(user);
@@ -64,7 +64,7 @@ export class UserService {
   }
 
   public async deleteUser(username: string): Promise<void> {
-    const userRepo = getConnection().getRepository(User);
+    const userRepo = (await getConnection()) .getRepository(User);
 
     const user = await this.getUser(username);
 

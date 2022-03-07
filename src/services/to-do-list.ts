@@ -1,14 +1,14 @@
 import 'reflect-metadata';
 import Boom from '@hapi/boom';
 import { Service } from 'typedi';
-import { getConnection } from 'typeorm';
-
 import { ToDoList } from '../models/to-do-list';
+import { getConnection } from '../utils/connection';
+
 
 @Service()
 export class ToDoListService {
   public async getToDoListsForUser(userId: string, offset: number, limit: number): Promise<[ToDoList[], number]> {
-    const toDoListRepo = getConnection().getRepository(ToDoList);
+    const toDoListRepo = (await getConnection()) .getRepository(ToDoList);
 
     return toDoListRepo.findAndCount({
       skip: offset,
@@ -18,7 +18,7 @@ export class ToDoListService {
   }
 
   public async getToDoList(toDoListId: string): Promise<ToDoList> {
-    const toDoListRepo = getConnection().getRepository(ToDoList);
+    const toDoListRepo = (await getConnection()) .getRepository(ToDoList);
 
     const list = await toDoListRepo.findOne({
       where: { id: toDoListId },
@@ -32,7 +32,7 @@ export class ToDoListService {
   }
 
   public async createToDoListForUser(userId: string, title: string): Promise<ToDoList> {
-    const toDoListRepo = getConnection().getRepository(ToDoList);
+    const toDoListRepo = (await getConnection()) .getRepository(ToDoList);
 
     const toDoList = toDoListRepo.create({
       userId,
@@ -43,13 +43,13 @@ export class ToDoListService {
   }
 
   public async updateToDoList(toDoList: ToDoList): Promise<ToDoList> {
-    const toDoListRepo = getConnection().getRepository(ToDoList);
+    const toDoListRepo = (await getConnection()) .getRepository(ToDoList);
 
     return toDoListRepo.save(toDoList, { reload: true });
   }
 
   public async removeToDoList(toDoList: ToDoList): Promise<ToDoList> {
-    const toDoListRepo = getConnection().getRepository(ToDoList);
+    const toDoListRepo = (await getConnection()) .getRepository(ToDoList);
 
     return toDoListRepo.remove(toDoList);
   }

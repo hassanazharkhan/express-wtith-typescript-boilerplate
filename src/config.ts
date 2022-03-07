@@ -36,8 +36,8 @@ const conf = convict({
     },
     password: {
       format: '*',
-      default: 'postgres',
-      env: 'DB_PASSWORD',
+      default: 'irajaamir',
+      env: 'irajaamir',
     },
   },
 });
