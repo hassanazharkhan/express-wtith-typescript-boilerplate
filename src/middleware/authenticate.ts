@@ -22,6 +22,7 @@ export class Authenticate implements ExpressMiddlewareInterface {
     }
 
     if (!apiKey) {
+      console.log(apiKey);
       return next(Boom.unauthorized('API Key is required'));
     }
 
