@@ -52,7 +52,7 @@
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "0.9.0",
     "supertest": "6.1.6",
-    "swagger-jsdoc": "6.1.0",
+    "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "4.3.0",
     "ts-node": "10.4.0",
     "typedi": "0.8.0",
